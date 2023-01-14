@@ -41,19 +41,17 @@ jobs:
 
       - name: Run shellcheck
         id: shellcheck
-        uses: ludeuus/shellcheck@94e0aab03ca135d11a35e5bfc14e6746dc56e7e9 #@v1.1.0
+        uses: oseki-guy/actions-shellcheck@output_file
         with:
           format: json
+          output_file: shellcheck-results.json
 
       - name: Convert shellcheck results to SARIF
-        runs: shellcheck-fmt < ${{steps.shellcheck.outputs}} > shellcheck-results.sarif
-          cargo clippy
-          --all-features
-          --message-format=json | clippy-sarif | tee rust-clippy-results.sarif | sarif-fmt
+        runs: shellcheck-fmt < shellcheck-results.json > shellcheck-results.sarif
         continue-on-error: true
 
       - name: Upload analysis results to GitHub
         uses: github/codeql-action/upload-sarif@v1
         with:
-          sarif_file: rust-clippy-results.sarif
+          sarif_file: shellcheck-results.sarif
           wait-for-processing: true
