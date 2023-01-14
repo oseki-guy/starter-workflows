@@ -28,24 +28,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install Rust toolchain
-        uses: actions-rs/toolchain@16499b5e05bf2e26879000db0c1d13f7e13fa3af #@v1
+      - name: Install shellcheck-sarif
+        uses: actions-rs/install@9da1d2adcfe5e7c16992e8242ca33a56b6d9b101 #@v0.1.2
         with:
-          profile: minimal
-          override: true
-
-      - name: Install shellcheck
-        run: cargo install shellcheck-fmt
+          crate: shellcheck-sarif
+          use-tool-cache: true
 
       - name: Run shellcheck
-        id: shellcheck
-        uses: oseki-guy/actions-shellcheck@output_file
+        uses: oseki-guy/action-shellcheck@no-exit
         with:
           format: json
           output_file: shellcheck-results.json
+          no_exit: true
 
       - name: Convert shellcheck results to SARIF
-        run: shellcheck-fmt < shellcheck-results.json > shellcheck-results.sarif
+        run: shellcheck-sarif < shellcheck-results.json > shellcheck-results.sarif
         continue-on-error: true
 
       - name: Upload analysis results to GitHub
