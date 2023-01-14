@@ -45,7 +45,7 @@ jobs:
           output_file: shellcheck-results.json
 
       - name: Convert shellcheck results to SARIF
-        runs: shellcheck-fmt < shellcheck-results.json > shellcheck-results.sarif
+        run: shellcheck-fmt < shellcheck-results.json > shellcheck-results.sarif
         continue-on-error: true
 
       - name: Upload analysis results to GitHub
