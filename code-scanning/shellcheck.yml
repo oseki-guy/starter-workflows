@@ -3,8 +3,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 # shellcheck is an analysis tool to find bugs and inconsistencies in your shell scripts.
-# mistakes in your Rust code and help improve your Rust code.
-# More details at https://www.shellcheck.net/ and https://www.shellcheck.net/
+# More details at https://www.shellcheck.net/
 
 name: shellcheck analysis
 
